@@ -8,7 +8,12 @@ function Meme({ template, handleReset, handleClick }) {
   const [isLoading, setLoading] = useState(false);
 
   function validate() {
-    return topText.length > 0 && bottomText.length > 0;
+    return (
+      topText.length > 0 &&
+      topText.length <= 25 &&
+      bottomText.length > 0 &&
+      bottomText.length <= 25
+    );
   }
 
   async function handleSubmit(e) {
