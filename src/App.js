@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MemeList from "./components/MemeList";
 import Meme from "./components/Meme";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 function App() {
   const [templates, getTemplates] = useState([]);
   const [template, getTemplate] = useState(null);
@@ -15,7 +15,11 @@ function App() {
     <div style={{ textAlign: "center" }} className='container'>
       {!template && <MemeList list={templates} handleClick={getTemplate} />}
       {template && (
-        <Meme template={template} handleReset={() => getTemplate(null)} />
+        <Meme
+          template={template}
+          handleReset={() => getTemplate(null)}
+          handleClick={() => getTemplate(template)}
+        />
       )}
     </div>
   );

@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import FinishedMeme from "./FinishedMeme";
 import loader from "../utils/loader.svg";
-function Meme({ template, handleReset }) {
+function Meme({ template, handleReset, handleClick }) {
   const [topText, setTopText] = useState("");
   const [bottomText, setBottomText] = useState("");
   const [memeUrl, getMemeURL] = useState(null);
   const [isLoading, setLoading] = useState(false);
+
+  function validate() {
+    return topText.length > 0 && bottomText.length > 0;
+  }
+
   async function handleSubmit(e) {
-    e.preventDefault();
     setLoading(true);
+    e.preventDefault();
     const params = {
       template_id: template.id,
       username: "atd285",
@@ -56,9 +61,14 @@ function Meme({ template, handleReset }) {
                 onChange={(e) => setBottomText(e.target.value)}
               />
             </div>
-            <button type='submit' className='btn btn-submit'>
+            <button
+              type='submit'
+              className='btn btn-submit'
+              disabled={!validate()}
+            >
               Create Meme
             </button>
+            <p style={{ textAlign: "center" }}>(fields cannot be blank)</p>
           </form>
           <div className='divider' />
           <h3 className='back-section'>
@@ -68,7 +78,14 @@ function Meme({ template, handleReset }) {
         </React.Fragment>
       )}
       {isLoading && <img src={loader} alt='loading-svg' className='spinner' />}
-      {memeUrl && !isLoading && <FinishedMeme newImg={memeUrl} />}
+      {memeUrl && !isLoading && (
+        <FinishedMeme
+          newImg={memeUrl}
+          onReset={handleReset}
+          template={template}
+          handleClick={handleClick}
+        />
+      )}
     </React.Fragment>
   );
 }
