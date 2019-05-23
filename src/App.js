@@ -9,7 +9,7 @@ function App() {
     fetch("https://api.imgflip.com/get_memes")
       .then((response) => response.json())
       .then(({ data: { memes } }) => getTemplates(memes));
-  }, [templates]);
+  }, []);
 
   return (
     <div style={{ textAlign: "center" }} className='container'>

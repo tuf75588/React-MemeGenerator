@@ -34,7 +34,7 @@ function Meme({ template, handleReset, handleClick }) {
       setLoading(false);
     }, 3000);
   }
-
+  console.log(template);
   return (
     <React.Fragment>
       {!memeUrl && !isLoading && (
